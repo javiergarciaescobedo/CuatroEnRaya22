@@ -73,5 +73,18 @@ public class CuatroEnRaya {
         return fila-1;
     }
     
-    
+    public boolean comprobar4EnRaya(int columna, int fila, char jugador) {
+        int contador = 0;
+        int pos = 1;
+        while(columna-pos >= 0 && tablero[columna-pos][fila]==jugador) {
+            contador++;
+            pos++;
+        }
+        System.out.println("contador: " + contador);
+        if(contador >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
