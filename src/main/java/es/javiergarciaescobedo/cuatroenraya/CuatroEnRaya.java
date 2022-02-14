@@ -9,6 +9,7 @@ public class CuatroEnRaya {
     final char JUGADOR1 = '1';
     final char JUGADOR2 = '2';
     final char VACIO = '.';
+    char turnoJugador = JUGADOR1;
     
     // Método constructor
     public CuatroEnRaya() {  
@@ -43,18 +44,18 @@ public class CuatroEnRaya {
         System.out.println();
     }
     
-    public boolean colocarFicha(int columna, int fila, int jugador) {
+    public boolean colocarFicha(int columna) {        
         if(columna >= 0 && columna < tamXTablero) {
-            switch(jugador) {
-                case 1:
-                    tablero[columna][fila] = JUGADOR1;
-                    break;
-                case 2:
-                    tablero[columna][fila] = JUGADOR2;
-                    break;
+            int fila = this.buscarFila(columna);
+            if(fila != -1) {
+                tablero[columna][fila] = turnoJugador;                
+                return true;
+            } else {
+                // La columna está llena de fichas
+                return false;
             }
-            return true;
         } else {
+            // Se ha intentado colocar en una columna inexistente
             return false;
         }
     }
@@ -63,7 +64,7 @@ public class CuatroEnRaya {
      *
      * @param columna
      * @return Fila en la que se debe colocar la ficha, 
-     * ó -1 si no se puede colocar
+     *          ó -1 si no se puede colocar
      */
     public int buscarFila(int columna) {
         int fila = 0;
@@ -160,4 +161,12 @@ public class CuatroEnRaya {
             return false;
         }
     }    
+    
+    public void cambiarTurnoJugador() {
+        if(turnoJugador == JUGADOR1) {
+            turnoJugador = JUGADOR2;
+        } else {
+            turnoJugador = JUGADOR1;
+        }
+    }
 }
