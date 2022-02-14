@@ -42,12 +42,12 @@ public class App extends Application {
 //        }
 
         cuatroEnRaya.colocarFicha(0, 5, 1);
-        cuatroEnRaya.colocarFicha(1, 5, 1);
-        cuatroEnRaya.colocarFicha(2, 5, 1);
-        cuatroEnRaya.colocarFicha(3, 5, 1);
-        cuatroEnRaya.colocarFicha(4, 5, 1);
+        cuatroEnRaya.colocarFicha(1, 4, 1);
+        cuatroEnRaya.colocarFicha(2, 3, 1);
+        cuatroEnRaya.colocarFicha(3, 2, 1);
+        cuatroEnRaya.colocarFicha(4, 1, 1);
         
-        if(cuatroEnRaya.comprobar4EnRaya(4, 5, '1')) {
+        if(cuatroEnRaya.comprobar4EnRayaDiagonal2(4, 1, '1')) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Has hecho 4 en raya");
             alert.showAndWait();

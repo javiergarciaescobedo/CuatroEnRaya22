@@ -73,18 +73,91 @@ public class CuatroEnRaya {
         return fila-1;
     }
     
-    public boolean comprobar4EnRaya(int columna, int fila, char jugador) {
+    public boolean comprobar4EnRayaHorizontal(int columna, int fila, char jugador) {
         int contador = 0;
+        // Recuento a la izquierda
         int pos = 1;
         while(columna-pos >= 0 && tablero[columna-pos][fila]==jugador) {
             contador++;
             pos++;
         }
-        System.out.println("contador: " + contador);
+        // Recuento a la derecha
+        pos = 1;
+        while(columna+pos < tamXTablero && tablero[columna+pos][fila]==jugador) {
+            contador++;
+            pos++;
+        }
+        System.out.println("Contador horizontal: " + contador);
         if(contador >= 3) {
             return true;
         } else {
             return false;
         }
     }
+
+    public boolean comprobar4EnRayaVertical(int columna, int fila, char jugador) {
+        int contador = 0;
+        // Recuento hacia arriba
+        int pos = 1;
+        while(fila-pos >= 0 && tablero[columna][fila-pos]==jugador) {
+            contador++;
+            pos++;
+        }
+        // Recuento hacia abajo
+        pos = 1;
+        while(fila+pos < tamYTablero && tablero[columna][fila+pos]==jugador) {
+            contador++;
+            pos++;
+        }
+        System.out.println("Contador vertical: " + contador);
+        if(contador >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean comprobar4EnRayaDiagonal1(int columna, int fila, char jugador) {
+        int contador = 0;
+        // Recuento hacia arriba
+        int pos = 1;
+        while(fila-pos >= 0 && columna-pos >= 0 && tablero[columna-pos][fila-pos]==jugador) {
+            contador++;
+            pos++;
+        }
+        // Recuento hacia abajo
+        pos = 1;
+        while(fila+pos < tamYTablero && columna+pos < tamXTablero && tablero[columna+pos][fila+pos]==jugador) {
+            contador++;
+            pos++;
+        }
+        System.out.println("Contador diagonal 1: " + contador);
+        if(contador >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+    public boolean comprobar4EnRayaDiagonal2(int columna, int fila, char jugador) {
+        int contador = 0;
+        // Recuento hacia arriba
+        int pos = 1;
+        while(fila-pos >= 0 && columna+pos >= 0 && tablero[columna+pos][fila-pos]==jugador) {
+            contador++;
+            pos++;
+        }
+        // Recuento hacia abajo
+        pos = 1;
+        while(fila+pos < tamYTablero && columna-pos < tamXTablero && tablero[columna-pos][fila+pos]==jugador) {
+            contador++;
+            pos++;
+        }
+        System.out.println("Contador diagonal 2: " + contador);
+        if(contador >= 3) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
 }
