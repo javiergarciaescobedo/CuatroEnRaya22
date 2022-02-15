@@ -169,4 +169,15 @@ public class CuatroEnRaya {
             turnoJugador = JUGADOR1;
         }
     }
+    
+    public boolean finPartida() {
+        for(int x=0; x<tamXTablero; x++) {
+            for(int y=0; y<tamYTablero; y++) {
+                if(tablero[x][y] == VACIO) {
+                    return false;
+                }
+            }
+        }
+        return true;        
+    }
 }
