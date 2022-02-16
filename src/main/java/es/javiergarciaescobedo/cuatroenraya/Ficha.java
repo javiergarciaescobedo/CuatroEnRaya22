@@ -1,13 +1,20 @@
 package es.javiergarciaescobedo.cuatroenraya;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 public class Ficha extends Group {
         
     static final double TAM_FICHA = 40;
+    double posX;
+    double posY;
     
     public Ficha() {
         Circle circleExterior = new Circle();
@@ -29,5 +36,21 @@ public class Ficha extends Group {
         this.setLayoutY(0);
         this.getChildren().addAll(circleExterior, circleInterior);
     }
+    
+    public void setPosX(double posX) {
+        this.posX = posX;
+        this.setLayoutX(this.posX);
+    }
+        
+    public void setPosY(double posY) {
+        this.posY = posY;  
+        this.setLayoutY(this.posY);
+    }
+    
+    public void moverY(int inc) {
+        this.posY += inc;  
+        this.setLayoutY(this.posY);
+    }
+
     
 }

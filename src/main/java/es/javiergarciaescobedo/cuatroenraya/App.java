@@ -24,9 +24,10 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
                 
-        Tablero tablero = new Tablero();
+        CuatroEnRaya cuatroEnRaya = new CuatroEnRaya();
+
+        Tablero tablero = new Tablero(cuatroEnRaya);
         paneRoot.getChildren().add(tablero);
-        tablero.colocarFicha();
         
 //        for(int i=0; i<100; i++) {
 //            Ficha ficha = new Ficha();
@@ -36,7 +37,6 @@ public class App extends Application {
         
         // Crear objeto de la lógica del juego
         //CuatroEnRaya cuatroEnRaya = new CuatroEnRaya((short)20, (short)10);
-        CuatroEnRaya cuatroEnRaya = new CuatroEnRaya();
                
         Random random = new Random();
         for(int i=0; i<20; i++) {
