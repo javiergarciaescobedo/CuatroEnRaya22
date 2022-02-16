@@ -23,11 +23,15 @@ public class App extends Application {
         var scene = new Scene(paneRoot, tamXPantalla, tamYPantalla);
         stage.setScene(scene);
         stage.show();
+                
+        Tablero tablero = new Tablero();
+        paneRoot.getChildren().add(tablero);
+        tablero.colocarFicha();
         
-        for(int i=0; i<100; i++) {
-            Ficha ficha = new Ficha();
-            paneRoot.getChildren().add(ficha);   
-        }
+//        for(int i=0; i<100; i++) {
+//            Ficha ficha = new Ficha();
+//            paneRoot.getChildren().add(ficha);   
+//        }
 
         
         // Crear objeto de la lógica del juego
