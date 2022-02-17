@@ -6,8 +6,8 @@ public class CuatroEnRaya {
     short tamYTablero;
     char[][] tablero;
     
-    final char JUGADOR1 = '1';
-    final char JUGADOR2 = '2';
+    static final char JUGADOR1 = '1';
+    static final char JUGADOR2 = '2';
     final char VACIO = '.';
     char turnoJugador = JUGADOR1;
     
@@ -44,20 +44,17 @@ public class CuatroEnRaya {
         System.out.println();
     }
     
-    public boolean colocarFicha(int columna) {        
+    public int colocarFicha(int columna) {        
         if(columna >= 0 && columna < tamXTablero) {
             int fila = this.buscarFila(columna);
             if(fila != -1) {
-                tablero[columna][fila] = turnoJugador;                
-                return true;
-            } else {
-                // La columna está llena de fichas
-                return false;
+                tablero[columna][fila] = turnoJugador;   
+                cambiarTurnoJugador();
             }
+            return fila;
         } else {
-            // Se ha intentado colocar en una columna inexistente
-            return false;
-        }
+            return -1;
+        }        
     }
     
     /**

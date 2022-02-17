@@ -16,39 +16,51 @@ public class Tablero extends Pane {
     
     Timeline timelineFicha;
     CuatroEnRaya cuatroEnRaya;
+    boolean fichaCayendo = false;
+    final byte VELOCIDAD_FICHA = 5;
     
     public Tablero(CuatroEnRaya cuatroEnRaya) {
         this.cuatroEnRaya = cuatroEnRaya;
-        this.setBackground(
-            new Background(
+        this.setBackground(new Background(
             new BackgroundFill(Color.DARKGREEN, CornerRadii.EMPTY, Insets.EMPTY)));
         this.setMinWidth(Ficha.TAM_FICHA * cuatroEnRaya.tamXTablero);
         this.setMinHeight(Ficha.TAM_FICHA * (cuatroEnRaya.tamYTablero + 1)); 
+        this.setMaxWidth(Ficha.TAM_FICHA * cuatroEnRaya.tamXTablero);
+        this.setMaxHeight(Ficha.TAM_FICHA * (cuatroEnRaya.tamYTablero + 1)); 
         
         this.setOnMouseClicked((event) -> {
-            int columna = (int)(event.getX() / Ficha.TAM_FICHA);
-            colocarFicha(columna);            
+            if(!fichaCayendo) {
+                int columna = (int)(event.getX() / Ficha.TAM_FICHA);
+                colocarFicha(columna); 
+            }
         });
     }
     
     public void colocarFicha(int columna) {
-        Ficha ficha = new Ficha();
+        Ficha ficha = new Ficha(cuatroEnRaya.turnoJugador);
         ficha.setPosX(columna * Ficha.TAM_FICHA + Ficha.TAM_FICHA / 2);
         ficha.setPosY(Ficha.TAM_FICHA / 2);
-        this.getChildren().add(ficha);
-        int filaFin = cuatroEnRaya.buscarFila(columna);
-        animarCaida(ficha, filaFin);
+        int filaFin = cuatroEnRaya.colocarFicha(columna);
+        if(filaFin != -1) {
+            this.getChildren().add(ficha);
+            animarCaida(ficha, filaFin);
+            cuatroEnRaya.mostrarTableroConsola();            
+        } else {
+            PanelMensajes.mostrarMensaje("No se puede colocar la ficha");
+        }
     }
     
     public void animarCaida(Ficha ficha, int filaFin) {
+        fichaCayendo = true;
         timelineFicha = new Timeline(
             new KeyFrame(Duration.seconds(0.017), new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent t) {                    
-                    if(ficha.posY < Ficha.TAM_FICHA * filaFin) {
-                        ficha.moverY(3);
+                    if(ficha.posY < Ficha.TAM_FICHA * filaFin + Ficha.TAM_FICHA*1.5) {
+                        ficha.moverY(VELOCIDAD_FICHA);
                     } else {
                         timelineFicha.stop();
+                        fichaCayendo = false;
                     }
                 }        
             })

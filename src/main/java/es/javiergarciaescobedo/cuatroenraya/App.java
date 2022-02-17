@@ -1,11 +1,15 @@
 package es.javiergarciaescobedo.cuatroenraya;
 
-import java.util.Random;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 /**
@@ -13,13 +17,15 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    BorderPane paneRoot;
+
     @Override
     public void start(Stage stage) {
         
         short tamXPantalla = 640;
         short tamYPantalla = 480;
         
-        Pane paneRoot = new Pane();
+        paneRoot = new BorderPane();
         var scene = new Scene(paneRoot, tamXPantalla, tamYPantalla);
         stage.setScene(scene);
         stage.show();
@@ -27,27 +33,9 @@ public class App extends Application {
         CuatroEnRaya cuatroEnRaya = new CuatroEnRaya();
 
         Tablero tablero = new Tablero(cuatroEnRaya);
-        paneRoot.getChildren().add(tablero);
+        paneRoot.setCenter(tablero);    
         
-//        for(int i=0; i<100; i++) {
-//            Ficha ficha = new Ficha();
-//            paneRoot.getChildren().add(ficha);   
-//        }
-
-        
-        // Crear objeto de la lógica del juego
-        //CuatroEnRaya cuatroEnRaya = new CuatroEnRaya((short)20, (short)10);
-               
-        Random random = new Random();
-        for(int i=0; i<20; i++) {
-            int col = random.nextInt(7);
-            if(cuatroEnRaya.colocarFicha(col)) {
-                cuatroEnRaya.cambiarTurnoJugador();
-            }
-        }
-                
-        cuatroEnRaya.mostrarTableroConsola();
-        
+        paneRoot.setBottom(new PanelMensajes());
     }
 
     public static void main(String[] args) {
