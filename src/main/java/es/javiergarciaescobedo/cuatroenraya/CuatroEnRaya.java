@@ -10,6 +10,7 @@ public class CuatroEnRaya {
     static final char JUGADOR2 = '2';
     final char VACIO = '.';
     char turnoJugador = JUGADOR1;
+    boolean finPartida = false;
     
     // Método constructor
     public CuatroEnRaya() {  
@@ -49,7 +50,6 @@ public class CuatroEnRaya {
             int fila = this.buscarFila(columna);
             if(fila != -1) {
                 tablero[columna][fila] = turnoJugador;   
-                cambiarTurnoJugador();
             }
             return fila;
         } else {
@@ -167,7 +167,7 @@ public class CuatroEnRaya {
         }
     }
     
-    public boolean finPartida() {
+    public boolean finPartidaEmpate() {
         for(int x=0; x<tamXTablero; x++) {
             for(int y=0; y<tamYTablero; y++) {
                 if(tablero[x][y] == VACIO) {
@@ -175,6 +175,19 @@ public class CuatroEnRaya {
                 }
             }
         }
+        finPartida = true;
         return true;        
+    }
+    
+    public boolean finPartidaGanador(int columna, int fila) {
+        if(comprobar4EnRayaHorizontal(columna, fila, turnoJugador) ||
+                comprobar4EnRayaVertical(columna, fila, JUGADOR1) ||
+                comprobar4EnRayaDiagonal1(columna, fila, JUGADOR1)||        
+                comprobar4EnRayaDiagonal2(columna, fila, JUGADOR1) ) {
+            finPartida = true;
+            return true;
+        } else {
+            return false;
+        }
     }
 }

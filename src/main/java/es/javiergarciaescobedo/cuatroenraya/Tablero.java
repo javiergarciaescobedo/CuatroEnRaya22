@@ -28,8 +28,10 @@ public class Tablero extends Pane {
         this.setMaxWidth(Ficha.TAM_FICHA * cuatroEnRaya.tamXTablero);
         this.setMaxHeight(Ficha.TAM_FICHA * (cuatroEnRaya.tamYTablero + 1)); 
         
+        PanelPuntuaciones.mostrarTurno(cuatroEnRaya.turnoJugador);
+        
         this.setOnMouseClicked((event) -> {
-            if(!fichaCayendo) {
+            if(!fichaCayendo && !cuatroEnRaya.finPartida) {
                 int columna = (int)(event.getX() / Ficha.TAM_FICHA);
                 colocarFicha(columna); 
             }
@@ -44,7 +46,15 @@ public class Tablero extends Pane {
         if(filaFin != -1) {
             this.getChildren().add(ficha);
             animarCaida(ficha, filaFin);
-            cuatroEnRaya.mostrarTableroConsola();            
+            cuatroEnRaya.mostrarTableroConsola();              
+            if(cuatroEnRaya.finPartidaGanador(columna, filaFin)) {
+                PanelMensajes.mostrarMensaje("GANADOR JUGADOR: " + cuatroEnRaya.turnoJugador);
+            } else if(cuatroEnRaya.finPartidaEmpate()) {
+                PanelMensajes.mostrarMensaje("EMPATE");
+            } else {
+                cuatroEnRaya.cambiarTurnoJugador();
+                PanelPuntuaciones.mostrarTurno(cuatroEnRaya.turnoJugador);                
+            }          
         } else {
             PanelMensajes.mostrarMensaje("No se puede colocar la ficha");
         }
