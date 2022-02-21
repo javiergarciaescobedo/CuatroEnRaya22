@@ -141,13 +141,13 @@ public class CuatroEnRaya {
         int contador = 0;
         // Recuento hacia arriba
         int pos = 1;
-        while(fila-pos >= 0 && columna+pos >= 0 && tablero[columna+pos][fila-pos]==jugador) {
+        while(fila-pos >= 0 && columna+pos < tamXTablero && tablero[columna+pos][fila-pos]==jugador) {
             contador++;
             pos++;
         }
         // Recuento hacia abajo
         pos = 1;
-        while(fila+pos < tamYTablero && columna-pos < tamXTablero && tablero[columna-pos][fila+pos]==jugador) {
+        while(fila+pos < tamYTablero && columna-pos >= 0 && tablero[columna-pos][fila+pos]==jugador) {
             contador++;
             pos++;
         }
@@ -181,9 +181,9 @@ public class CuatroEnRaya {
     
     public boolean finPartidaGanador(int columna, int fila) {
         if(comprobar4EnRayaHorizontal(columna, fila, turnoJugador) ||
-                comprobar4EnRayaVertical(columna, fila, JUGADOR1) ||
-                comprobar4EnRayaDiagonal1(columna, fila, JUGADOR1)||        
-                comprobar4EnRayaDiagonal2(columna, fila, JUGADOR1) ) {
+                comprobar4EnRayaVertical(columna, fila, turnoJugador) ||
+                comprobar4EnRayaDiagonal1(columna, fila, turnoJugador)||        
+                comprobar4EnRayaDiagonal2(columna, fila, turnoJugador) ) {
             finPartida = true;
             return true;
         } else {
